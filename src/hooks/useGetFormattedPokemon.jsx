@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 
 export const useGetFormattedPokemon = () => {
   const ALL_POKEMON_URL = 'https://pokeapi.co/api/v2/pokemon/?limit=905'
+  const POKEMON_IMAGE_URL = 'https://www.serebii.net/pokemongo/pokemon/'
 
   const [pokemons, setPokemons] = useState([])
 
@@ -29,6 +30,18 @@ export const useGetFormattedPokemon = () => {
     return pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1)
   }
 
+  const getFormattedImageUrl = (id) => {
+    const stringId = id.toString()
+
+    if (stringId.length === 1) {
+      return `${POKEMON_IMAGE_URL}00${id}.png`
+    } else if (stringId.length === 2) {
+      return `${POKEMON_IMAGE_URL}0${id}.png`
+    } else {
+      return `${POKEMON_IMAGE_URL}${id}.png`
+    }
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       const pokemonsFromFirstFetch = (
@@ -46,7 +59,8 @@ export const useGetFormattedPokemon = () => {
             weight,
             types,
             generation: getGeneration(id),
-            imageUrl: `https://raw.githubusercontent.com/anchetaWern/pokeapi-json/master/data/v1/media/img/${id}.png`,
+            // imageUrl: `https://raw.githubusercontent.com/anchetaWern/pokeapi-json/master/data/v1/media/img/${id}.png`,
+            imageUrl: getFormattedImageUrl(id),
           }
         })
       )
