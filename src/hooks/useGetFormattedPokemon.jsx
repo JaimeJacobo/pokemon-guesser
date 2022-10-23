@@ -33,13 +33,11 @@ export const useGetFormattedPokemon = () => {
   const getFormattedImageUrl = (id) => {
     const stringId = id.toString()
 
-    if (stringId.length === 1) {
-      return `${POKEMON_IMAGE_URL}00${id}.png`
-    } else if (stringId.length === 2) {
-      return `${POKEMON_IMAGE_URL}0${id}.png`
-    } else {
-      return `${POKEMON_IMAGE_URL}${id}.png`
-    }
+    return {
+      1: `${POKEMON_IMAGE_URL}00${id}.png`,
+      2: `${POKEMON_IMAGE_URL}0${id}.png`,
+      3: `${POKEMON_IMAGE_URL}${id}.png`,
+    }[stringId.length]
   }
 
   useEffect(() => {
@@ -59,7 +57,6 @@ export const useGetFormattedPokemon = () => {
             weight,
             types,
             generation: getGeneration(id),
-            // imageUrl: `https://raw.githubusercontent.com/anchetaWern/pokeapi-json/master/data/v1/media/img/${id}.png`,
             imageUrl: getFormattedImageUrl(id),
           }
         })

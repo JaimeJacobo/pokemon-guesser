@@ -1,0 +1,10 @@
+.App {
+  & .MuiFormGroup-root {
+    align-items: center;
+  }
+
+  &__pokemon-selector {
+    display: flex;
+    justify-content: center;
+  }
+}
