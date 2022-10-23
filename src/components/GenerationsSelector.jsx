@@ -3,8 +3,8 @@ import FormGroup from '@mui/material/FormGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
 
-const GenerationSelector = (props) => {
-  const { selectedGenerations, setSelectedGenerations } = props
+const GenerationsSelector = (props) => {
+  const { selectedGenerations, setSelectedGenerations, gameStarted } = props
 
   const handleSelectAllGenerations = (event) => {
     setSelectedGenerations(
@@ -20,7 +20,7 @@ const GenerationSelector = (props) => {
 
   const renderGenerationSelector = () => {
     return (
-      <div className="App__generation-selector">
+      <div className="GenerationSelector">
         {selectedGenerations.map((element, index) => {
           return (
             <FormControlLabel
@@ -28,6 +28,7 @@ const GenerationSelector = (props) => {
                 <Checkbox
                   checked={selectedGenerations[index]}
                   onChange={(event) => handleChangeGenerations(event, index)}
+                  disabled={gameStarted}
                 />
               }
               label={index + 1}
@@ -50,6 +51,7 @@ const GenerationSelector = (props) => {
               color="secondary"
               checked={selectedGenerations.every((element) => element)}
               onChange={(event) => handleSelectAllGenerations(event)}
+              disabled={gameStarted}
             />
           }
           label="Select All"
@@ -61,4 +63,4 @@ const GenerationSelector = (props) => {
   )
 }
 
-export default GenerationSelector
+export default GenerationsSelector

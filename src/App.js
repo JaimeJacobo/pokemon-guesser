@@ -1,5 +1,5 @@
 // React
-import * as React from 'react'
+import React, { useState, useEffect } from 'react'
 
 // CSS
 import './App.scss'
@@ -8,8 +8,9 @@ import './App.scss'
 import { useGetFormattedPokemon } from './hooks/useGetFormattedPokemon'
 
 // Components
-import GenerationSelector from './components/GenerationSelector.jsx'
+import GenerationsSelector from './components/GenerationsSelector'
 import PokemonSelector from './components/PokemonSelector.jsx'
+import PlayButton from './components/PlayButton.jsx'
 
 // Material UI components
 import Container from '@mui/material/Container'
@@ -17,8 +18,9 @@ import Container from '@mui/material/Container'
 const App = () => {
   const pokemons = useGetFormattedPokemon()
 
-  const [selectedPokemon, setSelectedPokemon] = React.useState('')
-  const [selectedGenerations, setSelectedGenerations] = React.useState([
+  const [filteredPokemons, setFilteredPokemons] = useState([])
+  const [selectedPokemon, setSelectedPokemon] = useState('')
+  const [selectedGenerations, setSelectedGenerations] = useState([
     true,
     false,
     false,
@@ -27,19 +29,44 @@ const App = () => {
     false,
     false,
   ])
+  const [gameStarted, setGameStarted] = useState(false)
+
+  const getPokemonsFromSelectedGenerations = (includedGenerations) => {
+    const filteredPokemons = pokemons.filter((pokemon) => {
+      return includedGenerations.includes(pokemon.generation)
+    })
+
+    setFilteredPokemons(filteredPokemons)
+  }
+
+  useEffect(() => {
+    const includedGenerations = selectedGenerations
+      .map((selectedGeneration, index) => selectedGeneration && index + 1)
+      .filter((generation) => generation)
+    getPokemonsFromSelectedGenerations(includedGenerations)
+  }, [selectedGenerations, pokemons])
 
   return (
     <div className="App">
       <Container>
-        <GenerationSelector
+        <GenerationsSelector
           selectedGenerations={selectedGenerations}
           setSelectedGenerations={setSelectedGenerations}
+          gameStarted={gameStarted}
         />
-        <PokemonSelector
-          pokemons={pokemons}
-          setSelectedPokemon={setSelectedPokemon}
-        />
-        <p>{pokemons.length} pokemons loaded</p>
+        {gameStarted ? (
+          <PokemonSelector
+            pokemons={filteredPokemons}
+            setSelectedPokemon={setSelectedPokemon}
+          />
+        ) : (
+          <PlayButton
+            setGameStarted={setGameStarted}
+            loadedPokemons={pokemons.length}
+          />
+        )}
+
+        <p>{filteredPokemons.length} pokemons selected</p>
       </Container>
     </div>
   )

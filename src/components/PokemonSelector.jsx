@@ -13,7 +13,7 @@ import SendIcon from '@mui/icons-material/Send'
 const PokemonSelector = (props) => {
   const { pokemons, setSelectedPokemon } = props
   return (
-    <div className="App__pokemon-selector">
+    <div className="PokemonSelector">
       <Autocomplete
         sx={{ width: 300 }}
         options={pokemons}

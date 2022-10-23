@@ -1,9 +1,16 @@
 .App {
-  & .MuiFormGroup-root {
-    align-items: center;
+  & .GenerationSelector {
+    & .MuiFormGroup-root {
+      align-items: center;
+    }
   }
 
-  &__pokemon-selector {
+  & .PlayButton {
+    display: flex;
+    justify-content: center;
+  }
+
+  & .PokemonSelector {
     display: flex;
     justify-content: center;
   }
