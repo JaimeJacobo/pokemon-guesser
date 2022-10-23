@@ -6,6 +6,7 @@ import './App.scss'
 
 // Hooks
 import { useGetFormattedPokemon } from './hooks/useGetFormattedPokemon'
+import { useGetPokemonsFromGenerations } from './hooks/useGetPokemonsFromGenerations'
 
 // Components
 import GenerationsSelector from './components/GenerationsSelector'
@@ -18,7 +19,6 @@ import Container from '@mui/material/Container'
 const App = () => {
   const pokemons = useGetFormattedPokemon()
 
-  const [filteredPokemons, setFilteredPokemons] = useState([])
   const [selectedPokemon, setSelectedPokemon] = useState('')
   const [selectedGenerations, setSelectedGenerations] = useState([
     true,
@@ -31,20 +31,7 @@ const App = () => {
   ])
   const [gameStarted, setGameStarted] = useState(false)
 
-  const getPokemonsFromSelectedGenerations = (includedGenerations) => {
-    const filteredPokemons = pokemons.filter((pokemon) => {
-      return includedGenerations.includes(pokemon.generation)
-    })
-
-    setFilteredPokemons(filteredPokemons)
-  }
-
-  useEffect(() => {
-    const includedGenerations = selectedGenerations
-      .map((selectedGeneration, index) => selectedGeneration && index + 1)
-      .filter((generation) => generation)
-    getPokemonsFromSelectedGenerations(includedGenerations)
-  }, [selectedGenerations, pokemons])
+  const filteredPokemons = useGetPokemonsFromGenerations(pokemons, selectedGenerations)
 
   return (
     <div className="App">
@@ -65,8 +52,6 @@ const App = () => {
             loadedPokemons={pokemons.length}
           />
         )}
-
-        <p>{filteredPokemons.length} pokemons selected</p>
       </Container>
     </div>
   )
