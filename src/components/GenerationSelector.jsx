@@ -32,6 +32,7 @@ const GenerationSelector = (props) => {
               }
               label={index + 1}
               labelPlacement="start"
+              key={index}
             />
           )
         })}
