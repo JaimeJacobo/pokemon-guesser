@@ -1,3 +1,6 @@
+// React
+import React from 'react'
+
 // Material UI components
 import Button from '@mui/material/Button'
 import CircularProgress from '@mui/material/CircularProgress'

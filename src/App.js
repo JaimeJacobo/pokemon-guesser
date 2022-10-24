@@ -31,7 +31,11 @@ const App = () => {
   ])
   const [gameStarted, setGameStarted] = useState(false)
 
-  const filteredPokemons = useGetPokemonsFromGenerations(pokemons, selectedGenerations)
+  const filteredPokemons = useGetPokemonsFromGenerations(
+    pokemons,
+    selectedGenerations,
+    gameStarted
+  )
 
   return (
     <div className="App">

@@ -1,3 +1,6 @@
+// React
+import React from 'react'
+
 // Components
 import PokemonImage from './PokemonImage.jsx'
 

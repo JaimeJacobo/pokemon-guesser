@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-export const useGetPokemonsFromGenerations = (pokemons, selectedGenerations) => {
+export const useGetPokemonsFromGenerations = (pokemons, selectedGenerations, gameStarted) => {
   const [filteredPokemons, setFilteredPokemons] = useState([])
 
   const getPokemonsFromSelectedGenerations = (includedGenerations) => {
@@ -17,7 +17,7 @@ export const useGetPokemonsFromGenerations = (pokemons, selectedGenerations) => 
       .filter((generation) => generation)
 
     getPokemonsFromSelectedGenerations(includedGenerations)
-  }, [selectedGenerations, pokemons])
+  }, [gameStarted])
 
   return filteredPokemons
 }
