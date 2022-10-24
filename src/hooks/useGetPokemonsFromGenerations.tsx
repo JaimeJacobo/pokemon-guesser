@@ -1,9 +1,16 @@
 import { useState, useEffect } from 'react'
+import { Pokemon } from '../typescript/globals'
 
-export const useGetPokemonsFromGenerations = (pokemons, selectedGenerations, gameStarted) => {
-  const [filteredPokemons, setFilteredPokemons] = useState([])
+export const useGetPokemonsFromGenerations = (
+  pokemons: Pokemon[],
+  selectedGenerations: boolean[],
+  gameStarted: boolean
+) => {
+  const [filteredPokemons, setFilteredPokemons] = useState<Pokemon[]>([])
 
-  const getPokemonsFromSelectedGenerations = (includedGenerations) => {
+  const getPokemonsFromSelectedGenerations = (
+    includedGenerations: (number | false)[]
+  ) => {
     const filteredPokemons = pokemons.filter((pokemon) => {
       return includedGenerations.includes(pokemon.generation)
     })

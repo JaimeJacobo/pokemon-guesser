@@ -12,6 +12,7 @@ import { useGetPokemonsFromGenerations } from './hooks/useGetPokemonsFromGenerat
 import GenerationsSelector from './components/GenerationsSelector'
 import PokemonSelector from './components/PokemonSelector.jsx'
 import PlayButton from './components/PlayButton.jsx'
+import MoreInfoGenerationsButton from './components/MoreInfoGenerationsButton'
 
 // Material UI components
 import Container from '@mui/material/Container'
@@ -29,7 +30,7 @@ const App = () => {
     false,
     false,
   ])
-  const [gameStarted, setGameStarted] = useState(false)
+  const [gameStarted, setGameStarted] = useState<boolean>(false)
 
   const filteredPokemons = useGetPokemonsFromGenerations(
     pokemons,
@@ -40,6 +41,7 @@ const App = () => {
   return (
     <div className="App">
       <Container>
+        <MoreInfoGenerationsButton />
         <GenerationsSelector
           selectedGenerations={selectedGenerations}
           setSelectedGenerations={setSelectedGenerations}
