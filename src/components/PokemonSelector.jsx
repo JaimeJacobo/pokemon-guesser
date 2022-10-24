@@ -15,6 +15,12 @@ import SendIcon from '@mui/icons-material/Send'
 
 const PokemonSelector = (props) => {
   const { pokemons, setSelectedPokemon } = props
+
+  const handleSelectedPokemon = (event) => {
+    setSelectedPokemon(
+      pokemons.find((pokemon) => pokemon.name === event.target.innerText)
+    )
+  }
   return (
     <div className="PokemonSelector">
       <Autocomplete
@@ -22,7 +28,7 @@ const PokemonSelector = (props) => {
         options={pokemons}
         autoHighlight
         getOptionLabel={(pokemon) => pokemon.name}
-        onChange={(event) => setSelectedPokemon(event.target.innerText)}
+        onChange={(event) => handleSelectedPokemon(event)}
         renderOption={(props, pokemon) => (
           <Box
             component="li"

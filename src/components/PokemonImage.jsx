@@ -13,11 +13,9 @@ const PokemonImage = (props) => {
 
   return (
     <img
-      // loading="lazy"
       onLoad={() => setImageLoaded(true)}
       width="50"
       src={getImage(pokemon.imageUrl)}
-      // srcSet={`https://flagcdn.com/w40/${pokemon.code.toLowerCase()}.png 2x`}
       alt={pokemon.name}
     />
   )

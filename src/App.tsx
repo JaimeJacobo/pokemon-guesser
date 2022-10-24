@@ -20,7 +20,7 @@ const App = () => {
   const pokemons = useGetFormattedPokemon()
 
   const [selectedPokemon, setSelectedPokemon] = useState('')
-  const [selectedGenerations, setSelectedGenerations] = useState([
+  const [selectedGenerations, setSelectedGenerations] = useState<boolean[]>([
     true,
     false,
     false,
