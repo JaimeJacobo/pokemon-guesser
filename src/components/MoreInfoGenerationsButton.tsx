@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 // Components
-import PokemonCard from './PokemonCard'
+import PokemonCard from './PokemonCard.tsx'
 
 // Material UI components
 import Button from '@mui/material/Button'

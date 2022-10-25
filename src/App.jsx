@@ -6,13 +6,13 @@ import './App.scss'
 
 // Hooks
 import { useGetFormattedPokemon } from './hooks/useGetFormattedPokemon'
-import { useGetPokemonsFromGenerations } from './hooks/useGetPokemonsFromGenerations'
+import { useGetPokemonsFromGenerations } from './hooks/useGetPokemonsFromGenerations.tsx'
 
 // Components
 import GenerationsSelector from './components/GenerationsSelector'
 import PokemonSelector from './components/PokemonSelector.jsx'
 import PlayButton from './components/PlayButton.jsx'
-import MoreInfoGenerationsButton from './components/MoreInfoGenerationsButton'
+import MoreInfoGenerationsButton from './components/MoreInfoGenerationsButton.tsx'
 
 // Material UI components
 import Container from '@mui/material/Container'
@@ -21,7 +21,7 @@ const App = () => {
   const pokemons = useGetFormattedPokemon()
 
   const [selectedPokemon, setSelectedPokemon] = useState('')
-  const [selectedGenerations, setSelectedGenerations] = useState<boolean[]>([
+  const [selectedGenerations, setSelectedGenerations] = useState([
     true,
     false,
     false,
@@ -30,7 +30,7 @@ const App = () => {
     false,
     false,
   ])
-  const [gameStarted, setGameStarted] = useState<boolean>(false)
+  const [gameStarted, setGameStarted] = useState(false)
 
   const filteredPokemons = useGetPokemonsFromGenerations(
     pokemons,
