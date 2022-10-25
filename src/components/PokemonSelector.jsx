@@ -35,7 +35,7 @@ const PokemonSelector = (props) => {
             sx={{ '& > img': { mr: 2, flexShrink: 0 } }}
             {...props}
           >
-            <PokemonImage pokemon={pokemon} />
+            <PokemonImage pokemon={pokemon} height={'50px'} width={'50px'} />
             {pokemon.name}
           </Box>
         )}

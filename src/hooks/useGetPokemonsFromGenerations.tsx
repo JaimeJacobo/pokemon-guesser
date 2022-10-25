@@ -8,6 +8,7 @@ export const useGetPokemonsFromGenerations = (
 ) => {
   const [filteredPokemons, setFilteredPokemons] = useState<Pokemon[]>([])
 
+
   const getPokemonsFromSelectedGenerations = (
     includedGenerations: (number | false)[]
   ) => {
@@ -20,8 +21,8 @@ export const useGetPokemonsFromGenerations = (
 
   useEffect(() => {
     const includedGenerations = selectedGenerations
-      .map((selectedGeneration, index) => selectedGeneration && index + 1)
-      .filter((generation) => generation)
+      .map((selectedGeneration, index) => selectedGeneration && index + 1) // get generations
+      .filter((generation) => generation) // remove the falsy values
 
     getPokemonsFromSelectedGenerations(includedGenerations)
   }, [gameStarted])

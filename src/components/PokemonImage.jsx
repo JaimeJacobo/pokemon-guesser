@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 const PokemonImage = (props) => {
-  const { pokemon } = props
+  const { pokemon, height, width } = props
 
   const [imageLoaded, setImageLoaded] = useState(false)
 
@@ -14,7 +14,8 @@ const PokemonImage = (props) => {
   return (
     <img
       onLoad={() => setImageLoaded(true)}
-      width="50"
+      width={width}
+      height={height}
       src={getImage(pokemon.imageUrl)}
       alt={pokemon.name}
     />

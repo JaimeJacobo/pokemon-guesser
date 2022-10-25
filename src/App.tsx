@@ -41,7 +41,7 @@ const App = () => {
   return (
     <div className="App">
       <Container>
-        <MoreInfoGenerationsButton />
+        <MoreInfoGenerationsButton pokemons={pokemons}/>
         <GenerationsSelector
           selectedGenerations={selectedGenerations}
           setSelectedGenerations={setSelectedGenerations}

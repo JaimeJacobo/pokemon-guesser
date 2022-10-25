@@ -1,4 +1,9 @@
 import * as React from 'react'
+
+// Components
+import PokemonCard from './PokemonCard'
+
+// Material UI components
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
@@ -15,11 +20,27 @@ import ListItemText from '@mui/material/ListItemText'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import Checkbox from '@mui/material/Checkbox'
 
-const MoreInfoGenerationsButton = () => {
+// Hooks
+import { useGetPokemonsFromGenerations } from '../hooks/useGetPokemonsFromGenerations'
+
+// Global interfaces and variables
+import { Pokemon } from '../typescript/globals'
+import { generations } from '../utils/global-variables'
+import { flexbox } from '@mui/system'
+
+// Props
+interface Props {
+  pokemons: Pokemon[]
+}
+
+const MoreInfoGenerationsButton = (props: Props): JSX.Element => {
+  const { pokemons } = props
   const [open, setOpen] = React.useState(false)
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
-  const [personName, setPersonName] = React.useState<string[]>([])
+  const [selectedGenerations, setSelectedGenerations] = React.useState<
+    string[]
+  >([])
 
   const ITEM_HEIGHT = 48
   const ITEM_PADDING_TOP = 8
@@ -32,19 +53,6 @@ const MoreInfoGenerationsButton = () => {
     },
   }
 
-  const names = [
-    'Oliver Hansen',
-    'Van Henry',
-    'April Tucker',
-    'Ralph Hubbard',
-    'Omar Alexander',
-    'Carlos Abbott',
-    'Miriam Wagner',
-    'Bradley Wilkerson',
-    'Virginia Andrews',
-    'Kelly Snyder',
-  ]
-
   const handleClickOpen = () => {
     setOpen(true)
   }
@@ -53,21 +61,25 @@ const MoreInfoGenerationsButton = () => {
     setOpen(false)
   }
 
-  const handleChange = (event: SelectChangeEvent<typeof personName>) => {
+  const handleChange = (
+    event: SelectChangeEvent<typeof selectedGenerations>
+  ) => {
     const {
       target: { value },
     } = event
-    setPersonName(
+    setSelectedGenerations(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value
     )
   }
   return (
-    <div>
+    <div className="MoreInfoGenerationsButton">
       <Button variant="contained" onClick={handleClickOpen}>
         More Info on Generations
       </Button>
       <Dialog
+        fullWidth={true}
+        maxWidth={'lg'}
         fullScreen={fullScreen}
         open={open}
         onClose={handleClose}
@@ -77,29 +89,48 @@ const MoreInfoGenerationsButton = () => {
         <DialogTitle id="responsive-dialog-title">
           {"Use Google's location service?"}
         </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            <FormControl sx={{ m: 1, width: 300 }}>
-              <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
-              <Select
-                labelId="demo-multiple-checkbox-label"
-                id="demo-multiple-checkbox"
-                multiple
-                value={personName}
-                onChange={handleChange}
-                input={<OutlinedInput label="Tag" />}
-                renderValue={(selected) => selected.join(', ')}
-                MenuProps={MenuProps}
-              >
-                {names.map((name) => (
-                  <MenuItem key={name} value={name}>
-                    <Checkbox checked={personName.indexOf(name) > -1} />
-                    <ListItemText primary={name} />
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </DialogContentText>
+        <DialogActions
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          <InputLabel id="demo-multiple-checkbox-label">
+            Filter Generations
+          </InputLabel>
+          <FormControl sx={{ m: 1, width: 300 }}>
+            <Select
+              labelId="demo-multiple-checkbox-label"
+              id="demo-multiple-checkbox"
+              multiple
+              value={selectedGenerations}
+              onChange={handleChange}
+              input={<OutlinedInput label="Filter Generations" />}
+              renderValue={(selected) => selected.join(', ')}
+              MenuProps={MenuProps}
+            >
+              {generations.map((generation) => (
+                <MenuItem key={generation} value={generation}>
+                  <Checkbox
+                    checked={selectedGenerations.indexOf(generation) > -1}
+                  />
+                  <ListItemText primary={generation} />
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </DialogActions>
+        <DialogContent
+          sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            border: '1px solid gray',
+          }}
+        >
+          {pokemons.map((pokemon) => {
+            return <PokemonCard pokemon={pokemon} />
+          })}
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose}>

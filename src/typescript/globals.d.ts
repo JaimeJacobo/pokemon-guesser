@@ -13,7 +13,7 @@ export interface Pokemon {
     name: string
     height: number
     weight: number
-    types: PokemonTypes
+    types: PokemonTypes[]
     generation: number
     imageUrl: string
 }
