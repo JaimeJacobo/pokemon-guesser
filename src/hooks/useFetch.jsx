@@ -1,11 +1,22 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
 
 export const useFetch = (url) => {
-  const [data, setData] = useState([])
+  const [data, setData] = useState(null);
   useEffect(() => {
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => setData(data.results))
-  }, [url])
-  return data
-}
+    let mounted = true;
+    const abortController = new AbortController();
+    (async () => {
+      const res = await fetch(url, {
+        signal: abortController.signal,
+      });
+      const data = await res.json();
+      if (mounted) setData(data.result);
+    })();
+    const cleanup = () => {
+      mounted = false;
+      abortController.abort();
+    };
+    return cleanup;
+  }, [url]);
+  return data;
+};
