@@ -8,7 +8,6 @@ export const useGetPokemonsFromGenerations = (
 ) => {
   const [filteredPokemons, setFilteredPokemons] = useState<Pokemon[]>([])
 
-
   const getPokemonsFromSelectedGenerations = (
     includedGenerations: (number | false)[]
   ) => {
